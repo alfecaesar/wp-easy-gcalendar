@@ -124,7 +124,7 @@ function gcal_render_list($atts) {
                     return response.json();
                 })
                 .then(data => {
-                    console.log("API Response:", data);
+                    //console.log("API Response:", data);
                     
                     if (!data.items || data.items.length === 0) {
                         container.innerHTML = '<p>No events found.</p>';
@@ -136,6 +136,8 @@ function gcal_render_list($atts) {
                     if (!isNaN(limit) && limit > 0) {
                         events = events.slice(0, limit);
                     }
+
+                    console.log('list events',events);
                     
                     let html = '<ul>';
                     events.forEach(event => {
@@ -175,56 +177,80 @@ function gcal_render_calendar() {
     ?>
     <div id="gcal-calendar" data-api-key="<?php echo esc_attr($api_key); ?>" data-calendar-id="<?php echo esc_attr($calendar_id); ?>" data-timezone="<?php echo esc_attr($wp_timezone); ?>"></div>
     <script type="text/javascript" src="https://apis.google.com/js/api.js" id="google-api-js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" id="moment-js-js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.9/index.global.min.js" id="fullcalendar-js-js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@fullcalendar/google-calendar@6.1.9/index.global.min.js" id="fullcalendargcal-js-js"></script>
+    <script src='https://cdn.jsdelivr.net/npm/rrule@2.6.4/dist/es5/rrule.min.js'></script>
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js'></script>
+    <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/rrule@6.1.15/index.global.min.js'></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const container = document.getElementById('gcal-calendar');
             const apiKey = container.dataset.apiKey;
             const calendarId = container.dataset.calendarId;
             const timezone = container.dataset.timezone;
+            const now = new Date();
+            const startOfYear = new Date(now.getFullYear(), - 1, 0, 1).toISOString();
+            const nextYear = new Date(now.getFullYear() + 1, 11, 31).toISOString();
+
+            console.log(nextYear)
             
-            fetch(`https://www.googleapis.com/calendar/v3/calendars/${calendarId}/events?key=${apiKey}`)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error(`HTTP Error! Status: ${response.status}`);
+            async function fetchEvents() {
+                const url = `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(calendarId)}/events?key=${apiKey}&timeMin=${startOfYear}&timeMax=${nextYear}&singleEvents=true&orderBy=startTime&maxResults=9000`;
+                try {
+                    const response = await fetch(url);
+                    const data = await response.json();
+
+                    console.log("API Response:", data); // Log the entire response
+
+                    if (data.error) {
+                        console.error("Google API Error:", data.error);
+                        alert(`Google API Error: ${data.error.message}`); // Display error to the user
+                        return [];
                     }
-                    return response.json();
-                })
-                .then(data => {
-                    console.log("API Response:", data);
-                    
-                    if (!data.items || data.items.length === 0) {
-                        container.innerHTML = '<p>No events found.</p>';
-                        return;
+
+                    if (!data.items) {
+                        throw new Error("No events found or API request failed.");
                     }
-                    
-                    let events = data.items.filter(event => event.start).map(event => ({
-                        title: event.summary || "No Title",
-                        start: event.start.dateTime || event.start.date
-                    }));
-                    
-                    let calendar = new FullCalendar.Calendar(container, {
-                        timeZone: timezone,
-                        googleCalendarApiKey: apiKey, 
-                        headerToolbar: {
-                            start: 'prev,next today',
-                            center: 'title',
-                            end: 'dayGridMonth,timeGridWeek,timeGridDay,listYear'
-                        },
-                        events: calendarId
+
+                    return data.items.map(event => {
+                        let eventObject = {
+                            title: event.summary,
+                            start: event.start.dateTime || event.start.date,
+                            end: event.end.dateTime || event.end.date,
+                            allDay: !event.start.dateTime,
+                            url: event.htmlLink
+                        };
+
+                        if (event.recurrence) {
+                            eventObject.rrule = event.recurrence[0].replace("RRULE:", "");
+                        }
+
+                        return eventObject;
                     });
-                    calendar.render();
-                })
-                .catch(error => {
-                    console.error("Fetch Error:", error.message);
-                    container.innerHTML = `<p>Error fetching events: ${error.message}</p>`;
+                } catch (error) {
+                    console.error("Error fetching events:", error);
+                    return [];
+                }
+            }
+
+            
+            fetchEvents().then(events => {
+                let calendar = new FullCalendar.Calendar(container, {
+                    timeZone: timezone,
+                    headerToolbar: {
+                        start: 'prev,next today',
+                        center: 'title',
+                        end: 'dayGridMonth,timeGridWeek,timeGridDay,listYear'
+                    },
+                    events: events,
                 });
+                
+                calendar.render();
+            });
         });
     </script>
     <?php
     return ob_get_clean();
 }
 add_shortcode('gcal_calendar', 'gcal_render_calendar');
+
+
 ?>
