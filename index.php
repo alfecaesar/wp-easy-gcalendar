@@ -2,7 +2,7 @@
 /*
 Plugin Name: WP Easy GCalendar
 Description: A plugin to display Google Calendar events in list or calendar layout.
-Version: 1.1
+Version: 1.2
 Author: Alfe Caesar Lagas
 */
 
