@@ -1,0 +1,204 @@
+.gcal-list-container{
+    display: flex;
+}
+
+.gcal-list-container.set-layout-1{
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 30px;
+}
+
+.set-layout-1 .gcal-list__row{
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.25);
+    -webkit-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.25);
+    -moz-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.25);
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    padding: 15px;
+    background: #3E5062;
+    transition: all ease-in-out 0.3s;
+}
+
+.set-layout-1 .gcal-list__row:hover{
+    background: #1A252F;
+}
+
+.set-layout-1 .gcal-list__column__month{
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 100%;
+    text-align: center;
+    color: #3E5062;
+}
+
+.set-layout-1 .gcal-list__column__day{
+    font-weight: 700;
+    font-size: 45px;
+    line-height: 100%;
+    text-align: center;
+    color: #3E5062;
+}
+
+.set-layout-1 .date-col{
+    flex: 0 0 80px;
+    background: #FFF;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+.set-layout-1 .title-col{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex: 1 1 auto;
+}
+
+.set-layout-1 .link-col{
+    flex: 0 0 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: auto;
+}
+
+.set-layout-1 a.arrow-btn{
+    display: block;
+    line-height: 100%;
+}
+
+.set-layout-1 a.arrow-btn svg{
+    width: 40px;
+    height: 40px;
+    fill: #fff;
+}
+
+.set-layout-1 .gcal-list__column__title{
+    font-weight: 700;
+    font-size: 20px;
+    color: #fff;
+}
+
+.gcal-list-container.set-layout-2{
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 30px;
+}
+
+.set-layout-2 .gcal-list__row{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.set-layout-2 .date-col{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 20px;
+    color: #40d9f1;
+}
+
+.set-layout-2 .date-col svg{
+    width: 20px;
+    height: 20px;
+    fill: #40d9f1;
+}
+
+.set-layout-2 .title-col{
+    color: #000;
+    font-weight: 700;
+    font-size: 23px;
+}
+
+.set-layout-2 .link-col a{
+    font-size: 17px;
+    color: gray;
+    font-weight: 700;
+}
+.set-layout-2 hr{
+    width: 100%;
+    border-top: 1px solid #eee;
+    border-bottom: 0;
+}
+.set-layout-2 hr:last-of-type{
+    display: none;
+}
+
+.gcal-list-container.set-layout-3{
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 30px;
+}
+
+.set-layout-3 .gcal-list__row{
+    border: 1px solid #eee;
+    border-radius: 10px;
+    padding: 10px;
+    display: flex;
+    gap: 30px;
+}
+
+.set-layout-3 .img-col{
+    flex: 0 0 80px;
+}
+
+.set-layout-3 .gcal-list__column__img{
+    position: relative;
+    line-height: 100%;
+}
+
+.set-layout-3 .gcal-list__column__img img{
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.set-layout-3 .content-col{
+    flex: 1 1 auto;
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+}
+
+.set-layout-3 .gcal-list__column__dateTime{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.set-layout-3 .gcal-list__column__dateTime svg.calendar-icon{
+    width: 20px;
+    height: 20px;
+    fill: #40d9f1;
+}
+
+.set-layout-3 .gcal-list__column__dateTime svg.clock-icon{
+    width: 20px;
+    height: 20px;
+    stroke: #40d9f1;
+    margin-left: auto;
+}
+
+.set-layout-3 .gcal-list__column__dateTime svg.clock-icon path{
+    stroke: #40d9f1;
+}
+
+.set-layout-3 .gcal-list__column__title{
+    font-weight: 700;
+    font-size:  25px;
+}
+
+.set-layout-3 .gcal-list__column__title a{
+    color: #000;
+}
+
+.gcal-list-container.set-layout-4{
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 30px;
+}
