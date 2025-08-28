@@ -81,11 +81,30 @@
     color: #fff;
 }
 
-.set-layout-1 .gcal-list__column__location{
-    font-size: 16px;
+.set-layout-1 .gcal-list__column__location,
+.set-layout-1 .gcal-list__column__description{
+    font-size: 14px;
     color: #fff;
     margin-top: 5px;
     font-style: italic;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.set-layout-1 .gcal-list__column__location .icon,
+.set-layout-1 .gcal-list__column__description .icon{
+    line-height: 0px;
+}
+
+.set-layout-1 .gcal-list__column__location .icon svg,
+.set-layout-1 .gcal-list__column__description .icon svg{
+    max-width: 20px;
+    max-height: 20px;
+}
+.set-layout-1 .gcal-list__column__location .icon svg path,
+.set-layout-1 .gcal-list__column__description .icon svg path{
+    stroke: #fff;
 }
 
 .gcal-list-container.set-layout-2{
@@ -134,11 +153,30 @@
     display: none;
 }
 
-.set-layout-2 .gcal-list__column__location{
-    font-size: 16px;
+.set-layout-2 .gcal-list__column__location,
+.set-layout-2 .gcal-list__column__description{
+    font-size: 14px;
     color: gray;
     margin-top: 5px;
     font-style: italic;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.set-layout-2 .gcal-list__column__location .icon,
+.set-layout-2 .gcal-list__column__description .icon{
+    line-height: 0px;
+}
+
+.set-layout-2 .gcal-list__column__location .icon svg,
+.set-layout-2 .gcal-list__column__description .icon svg{
+    max-width: 20px;
+    max-height: 20px;
+}
+.set-layout-2 .gcal-list__column__location .icon svg path,
+.set-layout-2 .gcal-list__column__description .icon svg path{
+    stroke: #40d9f1;
 }
 
 .gcal-list-container.set-layout-3{
@@ -211,15 +249,60 @@
     color: #000;
 }
 
-.set-layout-3 .gcal-list__column__location{
-    font-size: 16px;
+.set-layout-3 .gcal-list__column__location,
+.set-layout-3 .gcal-list__column__description{
+    font-size: 14px;
     color: gray;
     margin-top: 5px;
     font-style: italic;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.set-layout-3 .gcal-list__column__location .icon,
+.set-layout-3 .gcal-list__column__description .icon{
+    line-height: 0px;
+}
+
+.set-layout-3 .gcal-list__column__location .icon svg,
+.set-layout-3 .gcal-list__column__description .icon svg{
+    max-width: 20px;
+    max-height: 20px;
+}
+.set-layout-3 .gcal-list__column__location .icon svg path,
+.set-layout-3 .gcal-list__column__description .icon svg path{
+    stroke: #40d9f1;
 }
 
 .gcal-list-container.set-layout-4{
     flex-direction: column;
     justify-content: flex-start;
     gap: 30px;
+}
+
+.set-layout-4 .gcal-list__column__location,
+.set-layout-4 .gcal-list__column__description{
+    font-size: 14px;
+    color: gray;
+    margin-top: 5px;
+    font-style: italic;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.set-layout-4 .gcal-list__column__location .icon,
+.set-layout-4 .gcal-list__column__description .icon{
+    line-height: 0px;
+}
+
+.set-layout-4 .gcal-list__column__location .icon svg,
+.set-layout-4 .gcal-list__column__description .icon svg{
+    max-width: 20px;
+    max-height: 20px;
+}
+.set-layout-4 .gcal-list__column__location .icon svg path,
+.set-layout-4 .gcal-list__column__description .icon svg path{
+    stroke: #000;
 }

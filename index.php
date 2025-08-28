@@ -168,6 +168,15 @@ function gcal_render_list($atts) {
         const clockSVG = `<svg class="clock-icon" width="800px" height="800px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M12 7V12H15M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>`;
+
+        const pinSVG = `<svg width="800px" height="800px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 13C13.6569 13 15 11.6569 15 10C15 8.34315 13.6569 7 12 7C10.3431 7 9 8.34315 9 10C9 11.6569 10.3431 13 12 13Z" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M12 22C16 18 20 14.4183 20 10C20 5.58172 16.4183 2 12 2C7.58172 2 4 5.58172 4 10C4 14.4183 8 18 12 22Z" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>`;
+
+        const textSVG = `<svg width="800px" height="800px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M16 10H3M20 6H3M20 14H3M16 18H3" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>`;
         
         document.addEventListener('DOMContentLoaded', function() {
             const container = document.getElementById('gcal-list');
@@ -216,7 +225,12 @@ function gcal_render_list($atts) {
                         let endDate = new Date(end).toLocaleString('en-US', { timeZone: timezone });
                         let htmlLink = event.htmlLink;
                         let imageUrl = `https://placehold.co/600x400`;
-                        let location = event.location || '';
+                        let location = event.location 
+                                    ? `<div class="gcal-list__column__location"><span class="icon">${pinSVG}</span><span>${event.location}</span></div>` 
+                                    : "";
+                        let description = event.description 
+                                    ? `<div class="gcal-list__column__description"><span class="icon">${textSVG}</span><span>${event.description}</span></div>` 
+                                    : "";
 
                         if(event.attachments){
                             let attachment = event.attachments[0].fileId 
@@ -238,7 +252,8 @@ function gcal_render_list($atts) {
                                         </div>
                                         <div class="gcal-list__column title-col">
                                             <div class="gcal-list__column__title">${event.summary || 'No Title'}</div>
-                                            <div class="gcal-list__column__location">${location}</div>
+                                            ${location}
+                                            ${description}
                                         </div>
                                         <div class="gcal-list__column link-col">
                                             <a href="${htmlLink}" class="arrow-btn" target="_blank"><svg fill="#000000" height="200px" width="200px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 330 330" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path id="XMLID_222_" d="M250.606,154.389l-150-149.996c-5.857-5.858-15.355-5.858-21.213,0.001 c-5.857,5.858-5.857,15.355,0.001,21.213l139.393,139.39L79.393,304.394c-5.857,5.858-5.857,15.355,0.001,21.213 C82.322,328.536,86.161,330,90,330s7.678-1.464,10.607-4.394l149.999-150.004c2.814-2.813,4.394-6.628,4.394-10.606 C255,161.018,253.42,157.202,250.606,154.389z"></path> </g></svg></a>
@@ -249,7 +264,8 @@ function gcal_render_list($atts) {
                             html += `<div class="gcal-list__row">
                                         <div class="gcal-list__column date-col">${calendarSVG} ${monthOnly} ${dayOnly} - ${timeOnly}</div>
                                         <div class="gcal-list__column title-col">${event.summary || 'No Title'}</div>
-                                        <div class="gcal-list__column__location">${location}</div>
+                                        ${location}
+                                        ${description}
                                         <div class="gcal-list__column link-col"><a href="${htmlLink}" target="_blank">➡️ View Details</a></div>
                                     </div><hr  />`;
                         }
@@ -264,7 +280,8 @@ function gcal_render_list($atts) {
                                             <div class="gcal-list__column__dateTime">${calendarSVG} <span>${monthOnly} ${dayOnly}</span> ${clockSVG} <span>${timeOnly}</span></div>
                                             <div class="gcal-list__column__title">
                                                 <a href="${htmlLink}" target="_blank">${event.summary || 'No Title'}</a>
-                                                <p class="gcal-list__column__location">${location}</p>
+                                                ${location}
+                                                ${description}
                                             </div>
                                         </div>
                                     </div>`
@@ -272,7 +289,8 @@ function gcal_render_list($atts) {
                         else if(listLayout == 4){
                             html += `<div>
                                         <strong>${event.summary || 'No Title'}</strong> | ${startDate} - ${endDate}
-                                        <div class="gcal-list__column__location">${location}</div>
+                                        ${location}
+                                        ${description}
                                     </div>
                                     `;
                         }
