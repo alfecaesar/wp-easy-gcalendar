@@ -216,9 +216,9 @@ function gcal_render_list($atts) {
                         let endDate = new Date(end).toLocaleString('en-US', { timeZone: timezone });
                         let htmlLink = event.htmlLink;
                         let imageUrl = `https://placehold.co/600x400`;
+                        let location = event.location || '';
 
                         if(event.attachments){
-                            console.log('aasdasdasd')
                             let attachment = event.attachments[0].fileId 
                             imageUrl = `https://lh3.googleusercontent.com/d/${attachment}=w1000`;
                         }
@@ -238,6 +238,7 @@ function gcal_render_list($atts) {
                                         </div>
                                         <div class="gcal-list__column title-col">
                                             <div class="gcal-list__column__title">${event.summary || 'No Title'}</div>
+                                            <div class="gcal-list__column__location">${location}</div>
                                         </div>
                                         <div class="gcal-list__column link-col">
                                             <a href="${htmlLink}" class="arrow-btn" target="_blank"><svg fill="#000000" height="200px" width="200px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 330 330" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path id="XMLID_222_" d="M250.606,154.389l-150-149.996c-5.857-5.858-15.355-5.858-21.213,0.001 c-5.857,5.858-5.857,15.355,0.001,21.213l139.393,139.39L79.393,304.394c-5.857,5.858-5.857,15.355,0.001,21.213 C82.322,328.536,86.161,330,90,330s7.678-1.464,10.607-4.394l149.999-150.004c2.814-2.813,4.394-6.628,4.394-10.606 C255,161.018,253.42,157.202,250.606,154.389z"></path> </g></svg></a>
@@ -248,6 +249,7 @@ function gcal_render_list($atts) {
                             html += `<div class="gcal-list__row">
                                         <div class="gcal-list__column date-col">${calendarSVG} ${monthOnly} ${dayOnly} - ${timeOnly}</div>
                                         <div class="gcal-list__column title-col">${event.summary || 'No Title'}</div>
+                                        <div class="gcal-list__column__location">${location}</div>
                                         <div class="gcal-list__column link-col"><a href="${htmlLink}" target="_blank">➡️ View Details</a></div>
                                     </div><hr  />`;
                         }
@@ -260,12 +262,19 @@ function gcal_render_list($atts) {
                                         </div>
                                         <div class="gcal-list__column content-col">
                                             <div class="gcal-list__column__dateTime">${calendarSVG} <span>${monthOnly} ${dayOnly}</span> ${clockSVG} <span>${timeOnly}</span></div>
-                                            <div class="gcal-list__column__title"><a href="${htmlLink}" target="_blank">${event.summary || 'No Title'}</a></div>
+                                            <div class="gcal-list__column__title">
+                                                <a href="${htmlLink}" target="_blank">${event.summary || 'No Title'}</a>
+                                                <p class="gcal-list__column__location">${location}</p>
+                                            </div>
                                         </div>
                                     </div>`
                         }
                         else if(listLayout == 4){
-                            html += `<div><strong>${event.summary || 'No Title'}</strong> | ${startDate} - ${endDate}</div>`;
+                            html += `<div>
+                                        <strong>${event.summary || 'No Title'}</strong> | ${startDate} - ${endDate}
+                                        <div class="gcal-list__column__location">${location}</div>
+                                    </div>
+                                    `;
                         }
                         
                         //html += `<div><strong>${event.summary || 'No Title'}</strong> | ${startDate} - ${endDate}</div>`;

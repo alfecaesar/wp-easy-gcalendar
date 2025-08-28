@@ -81,6 +81,13 @@
     color: #fff;
 }
 
+.set-layout-1 .gcal-list__column__location{
+    font-size: 16px;
+    color: #fff;
+    margin-top: 5px;
+    font-style: italic;
+}
+
 .gcal-list-container.set-layout-2{
     flex-direction: column;
     justify-content: flex-start;
@@ -125,6 +132,13 @@
 }
 .set-layout-2 hr:last-of-type{
     display: none;
+}
+
+.set-layout-2 .gcal-list__column__location{
+    font-size: 16px;
+    color: gray;
+    margin-top: 5px;
+    font-style: italic;
 }
 
 .gcal-list-container.set-layout-3{
@@ -195,6 +209,13 @@
 
 .set-layout-3 .gcal-list__column__title a{
     color: #000;
+}
+
+.set-layout-3 .gcal-list__column__location{
+    font-size: 16px;
+    color: gray;
+    margin-top: 5px;
+    font-style: italic;
 }
 
 .gcal-list-container.set-layout-4{
